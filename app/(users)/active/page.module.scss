@@ -1,0 +1,55 @@
+@import "@/styles/mixins";
+
+.active {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 4rem 1fr;
+  align-items: center;
+
+  &-summaryText {
+    margin-left: 6rem;
+    font-size: 1.4rem;
+  }
+
+  &-buttons {
+    display: flex;
+    justify-self: right;
+    gap: 1rem;
+    margin-right: 5rem;
+  }
+
+  &-button {
+    @include buttonDefaults;
+  }
+
+  &-table {
+    grid-column: 1 / -1;
+    margin: 1.2rem 4rem 0rem 4rem;
+    align-self: start;
+
+    thead th:last-child {
+      width: 15%;
+    }
+
+    @include tableDefaults;
+
+    &-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    &-button {
+      @include buttonDefaults;
+    }
+  }
+
+  &-noDocs {
+    grid-column: 1 / -1;
+    text-align: center;
+    align-self: start;
+    font-size: 2rem;
+    margin-top: 1rem;
+  }
+}

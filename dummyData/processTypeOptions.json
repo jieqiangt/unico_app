@@ -1,0 +1,7 @@
+{
+  "processTypes": [
+    { "value": "1", "label": "Cutting" },
+    { "value": "2", "label": "Defrosting" },
+    { "value": "3", "label": "Drying" }
+  ]
+}

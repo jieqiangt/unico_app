@@ -1,0 +1,38 @@
+@import "@/styles/mixins";
+
+.confirmed {
+  display: flex;
+  flex-direction: column;
+
+  &-noDocs {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  &-form {
+    display: flex;
+    margin: 1rem 2rem;
+
+    &-fields {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      flex: 0;
+    }
+
+    &-field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-submitButton {
+      @include buttonDefaults;
+      flex: 0;
+    }
+  }
+
+  &-table {
+    @include tableDefaults;
+    margin: 1rem 2rem;
+  }
+}

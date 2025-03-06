@@ -1,0 +1,48 @@
+@import "@/styles/variables";
+
+$logo-height: 6rem;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 1.2rem;
+  margin-bottom: 1rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 2px;
+    background-color: $color-primary-dark;
+  }
+
+  &-logo {
+    height: $logo-height;
+
+    img {
+      height: 100%;
+      width: auto;
+    }
+  }
+
+  &-nav {
+    position: absolute;
+    top: calc($logo-height/2);
+    right: 2rem;
+    font-size: 1.6rem;
+    display: flex;
+    gap: 1rem;
+
+    a {
+      color: $color-text-gray-dark;
+
+      &:hover {
+        color: $color-primary-dark;
+      }
+    }
+  }
+}

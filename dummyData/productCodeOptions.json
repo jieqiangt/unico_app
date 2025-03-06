@@ -1,0 +1,11 @@
+{
+  "products": [
+    { "label": "A", "value": "A", "productName": "PORK BELLY", "uom": "KG" },
+    { "label": "B", "value": "B", "productName": "FROZEN SALMON FILLET", "uom": "KG" },
+    { "label": "C", "value": "C", "productName": "BAH KWA", "uom": "KG" },
+    { "label": "D", "value": "D", "productName": "BAH KWA SLICED", "uom": "KG" },
+    { "label": "E", "value": "E", "productName": "SALMON SLICED FILLET", "uom": "KG" },
+    { "label": "F", "value": "F", "productName": "SALMON FILLET", "uom": "KG" }
+    
+  ]
+}
