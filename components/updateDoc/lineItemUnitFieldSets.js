@@ -8,10 +8,10 @@ import FixedInput from "../generics/form/fixedInput";
 export default function LineItemUnitFieldSets({
   unitDetails,
   unitType,
-  unitIdx,
+  unitId,
   handleDeleteLineUnit,
   handleChangeInLineUnit,
-  lineIdx,
+  lineId,
   classes,
   productDetails,
 }) {
@@ -32,17 +32,17 @@ export default function LineItemUnitFieldSets({
       "productCode",
       productCode,
       unitType,
-      lineIdx,
-      unitIdx
+      lineId,
+      unitId
     );
     handleChangeInLineUnit(
       "productName",
       newProductName,
       unitType,
-      lineIdx,
-      unitIdx
+      lineId,
+      unitId
     );
-    handleChangeInLineUnit("uom", newUom, unitType, lineIdx, unitIdx);
+    handleChangeInLineUnit("uom", newUom, unitType, lineId, unitId);
   };
 
   const productCodeOptions = productDetails.map((product) => ({
@@ -53,11 +53,11 @@ export default function LineItemUnitFieldSets({
   return (
     <li
       className={classes["update-form-lineItem-unit"]}
-      key={`${unitDetails.productCode}${unitIdx}`}
+      key={`${unitDetails.productCode}${unitId}`}
     >
       <fieldset className={classes["update-form-lineItem-unit-fields"]}>
         <SelectInput
-          inputName={`${unitType}ProductCode${unitIdx}`}
+          inputName={`${unitType}ProductCode${unitId}`}
           selectedValue={unitDetails.productCode}
           options={productCodeOptions}
           onChange={handleChangeProductCode}
@@ -66,21 +66,21 @@ export default function LineItemUnitFieldSets({
           Product Code
         </SelectInput>
         <FixedInput
-          inputName={`${unitType}ProductName${unitIdx}`}
+          inputName={`${unitType}ProductName${unitId}`}
           inputValue={unitDetails.productName}
           fieldClassName={classes["update-form-lineItem-unit-field"]}
         >
           Product Name
         </FixedInput>
         <FixedInput
-          inputName={`${unitType}Uom${unitIdx}`}
+          inputName={`${unitType}Uom${unitId}`}
           inputValue={unitDetails.uom}
           fieldClassName={classes["update-form-lineItem-unit-field"]}
         >
           UoM
         </FixedInput>
         <TextInput
-          inputName={`${unitType}Quantity${unitIdx}`}
+          inputName={`${unitType}Quantity${unitId}`}
           inputValue={unitDetails.quantity}
           fieldClassName={classes["update-form-lineItem-unit-field"]}
           onChange={(event) =>
@@ -88,15 +88,15 @@ export default function LineItemUnitFieldSets({
               "quantity",
               event.target.value,
               unitType,
-              lineIdx,
-              unitIdx
+              lineId,
+              unitId
             )
           }
         >
           Quantity
         </TextInput>
         <TextInput
-          inputName={`${unitType}Weight${unitIdx}`}
+          inputName={`${unitType}Weight${unitId}`}
           inputValue={unitDetails.weight}
           fieldClassName={classes["update-form-lineItem-unit-field"]}
           onChange={(event) =>
@@ -104,8 +104,8 @@ export default function LineItemUnitFieldSets({
               "weight",
               event.target.value,
               unitType,
-              lineIdx,
-              unitIdx
+              lineId,
+              unitId
             )
           }
         >
@@ -115,7 +115,7 @@ export default function LineItemUnitFieldSets({
       <button
         className={classes["update-form-lineItem-button-deleteUnit"]}
         type="button"
-        onClick={() => handleDeleteLineUnit(unitType, lineIdx, unitIdx)}
+        onClick={() => handleDeleteLineUnit(unitType, lineId, unitId)}
       >
         Delete
       </button>

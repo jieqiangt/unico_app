@@ -83,12 +83,11 @@ export default function UpdateDocForm({
   if (lineItems.length != 0) {
     lineItemsOutput = (
       <ul className={classes["update-form-lineItems"]}>
-        {lineItems.map((lineItem, lineIdx) => {
+        {lineItems.map((lineItem) => {
           return (
             <LineItemRow
-              key={lineIdx}
+              key={lineItem.lineId}
               lineItem={lineItem}
-              lineIdx={lineIdx}
               handleDeleteLineItem={handleDeleteLineItem}
               handleAddLineUnit={handleAddLineUnit}
               handleDeleteLineUnit={handleDeleteLineUnit}

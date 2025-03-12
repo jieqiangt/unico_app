@@ -6,7 +6,6 @@ import DateTimeInput from "../generics/form/dateTimeInput";
 import SelectInput from "../generics/form/selectInput";
 
 export default function LineItemRow({
-  lineIdx,
   lineItem,
   handleDeleteLineItem,
   handleAddLineUnit,
@@ -20,16 +19,16 @@ export default function LineItemRow({
   const outputs = lineItem.outputs;
   const processTypeOptions = getProcessTypesOptions();
   return (
-    <li key={lineIdx} className={classes["update-form-lineItem"]}>
+    <li key={lineItem.lineId} className={classes["update-form-lineItem"]}>
       <div className={classes["update-form-lineItem-header"]}>
         <div className={classes["update-form-lineItem-titleBox"]}>
           <p className={classes["update-form-lineItem-title"]}>
-            Line {lineIdx + 1}
+            Line {lineItem.lineId}
           </p>
           <button
             className={classes["update-form-lineItem-button-deleteLineItem"]}
             type="button"
-            onClick={() => handleDeleteLineItem(lineIdx)}
+            onClick={() => handleDeleteLineItem(lineItem.lineId)}
           >
             Delete Line Item
           </button>
@@ -66,7 +65,7 @@ export default function LineItemRow({
         </div>
       </div>
       <LineItemUnit
-        lineIdx={lineIdx}
+        lineId={lineItem.lineId}
         unitType="inputs"
         units={inputs}
         handleAddLineUnit={handleAddLineUnit}
@@ -76,7 +75,7 @@ export default function LineItemRow({
         productDetails={productDetails}
       />
       <LineItemUnit
-        lineIdx={lineIdx}
+        lineId={lineItem.lineId}
         unitType="outputs"
         units={outputs}
         handleAddLineUnit={handleAddLineUnit}
