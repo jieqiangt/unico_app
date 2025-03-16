@@ -3,6 +3,7 @@ export default function DateTimeInput({
   inputName,
   inputValue,
   fieldClassName,
+  onChangeHandler,
 }) {
   return (
     <div className={fieldClassName}>
@@ -14,6 +15,7 @@ export default function DateTimeInput({
         defaultValue={inputValue}
         min="2025-01-01T00:00"
         max="2027-12-31T00:00"
+        onChange={onChangeHandler}
       />
     </div>
   );

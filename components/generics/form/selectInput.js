@@ -3,7 +3,7 @@ export default function SelectInput({
   inputName,
   options,
   selectedValue,
-  onChange,
+  onChangeHandler,
   fieldClassName,
 }) {
   const selectOptions = options.map((option) => {
@@ -21,12 +21,12 @@ export default function SelectInput({
         <select
           name={inputName}
           defaultValue={selectedValue}
-          onChange={onChange}
+          onChange={onChangeHandler}
         >
           {selectOptions}
         </select>
       ) : (
-        <select name={inputName} onChange={onChange}>
+        <select name={inputName} onChange={onChangeHandler}>
           {selectOptions}
         </select>
       )}
