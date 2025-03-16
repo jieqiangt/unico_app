@@ -7,8 +7,10 @@ import SelectInput from "../generics/form/selectInput";
 
 export default function LineItemRow({
   lineItem,
+  lineIdx,
   handleDeleteLineItem,
   handleAddLineUnit,
+  handleChangeInLineItem,
   handleDeleteLineUnit,
   handleChangeInLineUnit,
   classes,
@@ -19,16 +21,16 @@ export default function LineItemRow({
   const outputs = lineItem.outputs;
   const processTypeOptions = getProcessTypesOptions();
   return (
-    <li key={lineItem.lineId} className={classes["update-form-lineItem"]}>
+    <li className={classes["update-form-lineItem"]}>
       <div className={classes["update-form-lineItem-header"]}>
         <div className={classes["update-form-lineItem-titleBox"]}>
           <p className={classes["update-form-lineItem-title"]}>
-            Line {lineItem.lineId}
+            Line {lineIdx + 1}
           </p>
           <button
             className={classes["update-form-lineItem-button-deleteLineItem"]}
             type="button"
-            onClick={() => handleDeleteLineItem(lineItem.lineId)}
+            onClick={() => handleDeleteLineItem(lineIdx)}
           >
             Delete Line Item
           </button>
@@ -38,6 +40,7 @@ export default function LineItemRow({
             fieldClassName={classes["update-form-lineItem-processStart"]}
             inputName="processStart"
             inputValue={lineItem.processStart}
+            onChangeHandler={handleChangeInLineItem.bind(null, lineIdx)}
           >
             Process Start
           </DateTimeInput>
@@ -45,6 +48,7 @@ export default function LineItemRow({
             fieldClassName={classes["update-form-lineItem-processEnd"]}
             inputName="processEnd"
             inputValue={lineItem.processEnd}
+            onChangeHandler={handleChangeInLineItem.bind(null, lineIdx)}
           >
             Process End
           </DateTimeInput>
@@ -52,6 +56,8 @@ export default function LineItemRow({
             fieldClassName={classes["update-form-lineItem-processType"]}
             options={processTypeOptions}
             inputName="processType"
+            selectedValue={lineItem.processType}
+            onChangeHandler={handleChangeInLineItem.bind(null, lineIdx)}
           >
             Process Type
           </SelectInput>
@@ -59,6 +65,8 @@ export default function LineItemRow({
             fieldClassName={classes["update-form-lineItem-processedBy"]}
             options={processingEmpsOptions}
             inputName="processedBy"
+            selectedValue={lineItem.processedBy}
+            onChangeHandler={handleChangeInLineItem.bind(null, lineIdx)}
           >
             Processed By
           </SelectInput>

@@ -17,18 +17,24 @@ export default function UpdateDocForm({
   const [lineItems, setLineItems] = useState(initialLineItems);
 
   const emptyLineUnit = {
-    productCode: "",
-    productName: "",
-    weight: "",
-    quantity: "",
-    uom: "",
+    lineUnitId: null,
+    refLineId: null,
+    pdtCode: null,
+    pdtName: null,
+    foreignName: null,
+    weight: null,
+    quantity: null,
+    uom: null,
   };
 
   const emptyLineItem = {
-    processedType: "",
+    lineId: null,
+    processedByLabel: null,
     processedBy: "",
-    processedStart: todayDateTimeStr,
-    processedEnd: todayDateTimeStr,
+    processedType: null,
+    processedTypeLabel: null,
+    processStart: null,
+    processEnd: null,
     inputs: [emptyLineUnit],
     outputs: [emptyLineUnit],
   };
@@ -37,14 +43,39 @@ export default function UpdateDocForm({
     updateDoc(formData, lineItems);
   };
 
+  console.log(lineItems);
   const handleAddLineItem = (event) => {
     event.preventDefault();
-    setLineItems((oldlineItems) => [...oldlineItems, emptyLineItem]);
+    setLineItems((oldlineItems) => {
+      const newLineItems = JSON.parse(JSON.stringify(oldlineItems));
+      newLineItems.push(emptyLineItem);
+      return newLineItems;
+    });
   };
   const handleDeleteLineItem = (lineIdx) => {
     setLineItems((oldLineItems) => {
-      const newLineItems = [...oldLineItems];
+      const newLineItems = JSON.parse(JSON.stringify(oldLineItems));
       newLineItems.splice(lineIdx, 1);
+      return newLineItems;
+    });
+  };
+
+  const handleChangeInLineItem = (lineIdx, event) => {
+    event.preventDefault();
+    const { nodeName, name, value } = event.target;
+    let label;
+    let labelFieldName = `${name}Label`;
+
+    if (nodeName === "SELECT") {
+      label = event.target.selectedOptions[0].label;
+    }
+
+    setLineItems((oldLineItems) => {
+      const newLineItems = JSON.parse(JSON.stringify(oldLineItems));
+      newLineItems[lineIdx][name] = value;
+      if (label) {
+        newLineItems[lineIdx][labelFieldName] = label;
+      }
       return newLineItems;
     });
   };
@@ -83,13 +114,15 @@ export default function UpdateDocForm({
   if (lineItems.length != 0) {
     lineItemsOutput = (
       <ul className={classes["update-form-lineItems"]}>
-        {lineItems.map((lineItem) => {
+        {lineItems.map((lineItem, lineIdx) => {
           return (
             <LineItemRow
-              key={lineItem.lineId}
+              key={`${lineIdx}-${lineItem.processType}`}
+              lineIdx={lineIdx}
               lineItem={lineItem}
               handleDeleteLineItem={handleDeleteLineItem}
               handleAddLineUnit={handleAddLineUnit}
+              handleChangeInLineItem={handleChangeInLineItem}
               handleDeleteLineUnit={handleDeleteLineUnit}
               handleChangeInLineUnit={handleChangeInLineUnit}
               classes={classes}
