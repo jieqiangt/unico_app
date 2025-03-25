@@ -4,7 +4,7 @@ import { getEmployeesOptions, getProcessTypesOptions } from "@/lib/utils";
 import LineItemUnit from "./lineItemUnit";
 import DateTimeInput from "../generics/form/dateTimeInput";
 import SelectInput from "../generics/form/selectInput";
-
+import TextInput from "../generics/form/textInput";
 export default function LineItemRow({
   lineItem,
   lineIdx,
@@ -20,6 +20,7 @@ export default function LineItemRow({
   const inputs = lineItem.inputs;
   const outputs = lineItem.outputs;
   const processTypeOptions = getProcessTypesOptions();
+
   return (
     <li className={classes["update-form-lineItem"]}>
       <div className={classes["update-form-lineItem-header"]}>
@@ -57,6 +58,7 @@ export default function LineItemRow({
             options={processTypeOptions}
             inputName="processType"
             selectedValue={lineItem.processType}
+            defaultOptionText={"Select Process Type"}
             onChangeHandler={handleChangeInLineItem.bind(null, lineIdx)}
           >
             Process Type
@@ -65,6 +67,7 @@ export default function LineItemRow({
             fieldClassName={classes["update-form-lineItem-processedBy"]}
             options={processingEmpsOptions}
             inputName="processedBy"
+            defaultOptionText={"Select Processed By"}
             selectedValue={lineItem.processedBy}
             onChangeHandler={handleChangeInLineItem.bind(null, lineIdx)}
           >
@@ -73,7 +76,7 @@ export default function LineItemRow({
         </div>
       </div>
       <LineItemUnit
-        lineId={lineItem.lineId}
+        lineIdx={lineIdx}
         unitType="inputs"
         units={inputs}
         handleAddLineUnit={handleAddLineUnit}
@@ -83,7 +86,7 @@ export default function LineItemRow({
         productDetails={productDetails}
       />
       <LineItemUnit
-        lineId={lineItem.lineId}
+        lineIdx={lineIdx}
         unitType="outputs"
         units={outputs}
         handleAddLineUnit={handleAddLineUnit}

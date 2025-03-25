@@ -1,17 +1,15 @@
 import LineItemUnitFieldSets from "./lineItemUnitFieldSets";
 
 export default function LineItemUnit({
-  lineId,
+  lineIdx,
   unitType,
   units,
   handleAddLineUnit,
   handleDeleteLineUnit,
   handleChangeInLineUnit,
   classes,
-  productDetails
+  productDetails,
 }) {
-
-
   return (
     <div className={classes[`update-form-lineItem-${unitType}`]}>
       <div className={classes["update-form-lineItem-units-header"]}>
@@ -21,19 +19,19 @@ export default function LineItemUnit({
         <button
           className={classes["update-form-lineItem-button-addUnit"]}
           type="button"
-          onClick={() => handleAddLineUnit(unitType, lineId)}
+          onClick={() => handleAddLineUnit(unitType, lineIdx)}
         >
           Add
         </button>
       </div>
       <ul className={classes["update-form-lineItem-units"]}>
-        {units.map((unit) => {
+        {units.map((unit, unitIdx) => {
           return (
             <LineItemUnitFieldSets
               classes={classes}
-              key={unit.lineUnitId}
-              lineId={lineId}
-              unitId={unit.lineUnitId}
+              key={`${unitIdx}-${unit.pdtCode}`}
+              lineIdx={lineIdx}
+              unitIdx={unitIdx}
               unitDetails={unit}
               unitType={unitType}
               handleDeleteLineUnit={handleDeleteLineUnit}

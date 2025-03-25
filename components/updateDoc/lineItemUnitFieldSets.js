@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import SelectInput from "../generics/form/selectInput";
 import TextInput from "../generics/form/textInput";
 import FixedInput from "../generics/form/fixedInput";
@@ -8,106 +5,93 @@ import FixedInput from "../generics/form/fixedInput";
 export default function LineItemUnitFieldSets({
   unitDetails,
   unitType,
-  unitId,
+  lineIdx,
+  unitIdx,
   handleDeleteLineUnit,
   handleChangeInLineUnit,
-  lineId,
   classes,
   productDetails,
 }) {
-  const [productName, setProductName] = useState(unitDetails.productName);
-  const [uom, setUom] = useState(unitDetails.uom);
-
-  const handleChangeProductCode = (event) => {
-    const productCode = event.target.value;
-    const newProductName = productDetails.filter(
-      (product) => product.productCode === productCode
-    )[0].productName;
+  const handleChangePdtCode = (event) => {
+    const pdtCode = event.target.value;
+    const newPdtName = productDetails.filter(
+      (product) => product.pdtCode === pdtCode
+    )[0].pdtName;
     const newUom = productDetails.filter(
-      (product) => product.productCode === productCode
+      (product) => product.pdtCode === pdtCode
     )[0].uom;
-    setProductName(() => newProductName);
-    setUom(() => newUom);
-    handleChangeInLineUnit(
-      "productCode",
-      productCode,
-      unitType,
-      lineId,
-      unitId
-    );
-    handleChangeInLineUnit(
-      "productName",
-      newProductName,
-      unitType,
-      lineId,
-      unitId
-    );
-    handleChangeInLineUnit("uom", newUom, unitType, lineId, unitId);
+
+    handleChangeInLineUnit("pdtCode", pdtCode, unitType, lineIdx, unitIdx);
+    handleChangeInLineUnit("pdtName", newPdtName, unitType, lineIdx, unitIdx);
+    handleChangeInLineUnit("uom", newUom, unitType, lineIdx, unitIdx);
   };
 
-  const productCodeOptions = productDetails.map((product) => ({
-    value: product.productCode,
-    label: product.productCode,
+  const pdtCodeOptions = productDetails.map((product) => ({
+    value: product.pdtCode,
+    label: product.pdtCode,
   }));
 
   return (
     <li
       className={classes["update-form-lineItem-unit"]}
-      key={`${unitDetails.productCode}${unitId}`}
+      key={`${unitIdx}-${unitDetails.pdtCode}`}
     >
       <fieldset className={classes["update-form-lineItem-unit-fields"]}>
         <SelectInput
-          inputName={`${unitType}ProductCode${unitId}`}
-          selectedValue={unitDetails.productCode}
-          options={productCodeOptions}
-          onChange={handleChangeProductCode}
+          inputName={`${unitType}-${unitIdx}-pdtCode`}
+          selectedValue={unitDetails.pdtCode}
+          options={pdtCodeOptions}
+          defaultOptionText={"Select Product Code"}
+          onChangeHandler={handleChangePdtCode}
           fieldClassName={classes["update-form-lineItem-unit-field"]}
         >
           Product Code
         </SelectInput>
         <FixedInput
-          inputName={`${unitType}ProductName${unitId}`}
-          inputValue={unitDetails.productName}
+          inputName={`${unitType}-${unitIdx}-pdtName`}
+          inputValue={unitDetails.pdtName}
           fieldClassName={classes["update-form-lineItem-unit-field"]}
         >
           Product Name
         </FixedInput>
         <FixedInput
-          inputName={`${unitType}Uom${unitId}`}
+          inputName={`${unitType}-${unitIdx}-uom`}
           inputValue={unitDetails.uom}
           fieldClassName={classes["update-form-lineItem-unit-field"]}
         >
           UoM
         </FixedInput>
         <TextInput
-          inputName={`${unitType}Quantity${unitId}`}
-          inputValue={unitDetails.quantity}
+          inputName={`${unitType}-${unitIdx}-quantity`}
           fieldClassName={classes["update-form-lineItem-unit-field"]}
-          onChange={(event) =>
+          inputValue={unitDetails.quantity}
+          onChangeHandler={(event) => {
+            event.preventDefault();
             handleChangeInLineUnit(
               "quantity",
               event.target.value,
               unitType,
-              lineId,
-              unitId
-            )
-          }
+              lineIdx,
+              unitIdx
+            );
+          }}
         >
           Quantity
         </TextInput>
         <TextInput
-          inputName={`${unitType}Weight${unitId}`}
-          inputValue={unitDetails.weight}
+          inputName={`${unitType}-${unitIdx}-weight`}
           fieldClassName={classes["update-form-lineItem-unit-field"]}
-          onChange={(event) =>
+          inputValue={unitDetails.weight}
+          onChangeHandler={(event) => {
+            event.preventDefault();
             handleChangeInLineUnit(
               "weight",
               event.target.value,
               unitType,
-              lineId,
-              unitId
-            )
-          }
+              lineIdx,
+              unitIdx
+            );
+          }}
         >
           Weight-KG
         </TextInput>
@@ -115,7 +99,7 @@ export default function LineItemUnitFieldSets({
       <button
         className={classes["update-form-lineItem-button-deleteUnit"]}
         type="button"
-        onClick={() => handleDeleteLineUnit(unitType, lineId, unitId)}
+        onClick={() => handleDeleteLineUnit(unitType, lineIdx, unitIdx)}
       >
         Delete
       </button>

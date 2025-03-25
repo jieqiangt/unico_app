@@ -1,10 +1,10 @@
 import DocRow from "@/components/generics/docRow";
 import SubmitButton from "@/components/generics/submitButton";
 import { handleCreateDoc } from "@/lib/actions";
-import { getOutstandingDocuments } from "@/lib/utils";
 import classes from "./page.module.scss";
 import FunctionButton from "@/components/generics/functionButton";
 import { verifyAuthSession } from "@/lib/auth";
+import { getActiveDocuments } from "@/lib/db";
 
 export default async function ActivePage() {
   const { user } = await verifyAuthSession();
@@ -12,21 +12,16 @@ export default async function ActivePage() {
     redirect("/login");
   }
 
-  const docs = getOutstandingDocuments();
+  const docs = await getActiveDocuments();
+
   const docsDisplay = docs.length ? (
     <table className={classes["active-table"]}>
       <thead>
         <tr>
           <th>Document Number</th>
-          <th>Created On</th>
+          <th>Document Date</th>
           <th>Created By</th>
-          <th>Process Type</th>
-          <th>Process Start</th>
-          <th>Process End</th>
-          <th>Processed By</th>
-          <th>Weight Loss-KG</th>
-          <th>Line Inputs</th>
-          <th>Line Outputs</th>
+          <th>Last Updated By</th>
           <th></th>
         </tr>
       </thead>
@@ -40,6 +35,7 @@ export default async function ActivePage() {
               classes={classes}
               key={doc.docDetails.docNum}
               updatable={true}
+              userId={user.id}
             />
           );
         })}

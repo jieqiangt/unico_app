@@ -2,9 +2,30 @@
 import { useState } from "react";
 import DocFieldSets from "@/components/generics/form/docFieldSets";
 import LineItemRow from "./lineItemRow";
-import { updateDoc } from "@/lib/actions";
-import { getCurrentDateTime } from "@/lib/utils";
+import { handleUpdateDoc } from "@/lib/actions";
 
+const emptyLineUnit = {
+  lineUnitId: null,
+  refLineId: null,
+  pdtCode: null,
+  pdtName: null,
+  foreignName: null,
+  weight: null,
+  quantity: null,
+  uom: null,
+};
+
+const emptyLineItem = {
+  lineId: null,
+  processedByLabel: null,
+  processedBy: "",
+  processedType: null,
+  processedTypeLabel: null,
+  processStart: null,
+  processEnd: null,
+  inputs: [emptyLineUnit],
+  outputs: [emptyLineUnit],
+};
 export default function UpdateDocForm({
   docDetails,
   initialLineItems,
@@ -13,37 +34,8 @@ export default function UpdateDocForm({
   processingEmpsOptions,
   userId,
 }) {
-  const { todayEpoch, todayDateStr, todayDateTimeStr } = getCurrentDateTime();
   const [lineItems, setLineItems] = useState(initialLineItems);
 
-  const emptyLineUnit = {
-    lineUnitId: null,
-    refLineId: null,
-    pdtCode: null,
-    pdtName: null,
-    foreignName: null,
-    weight: null,
-    quantity: null,
-    uom: null,
-  };
-
-  const emptyLineItem = {
-    lineId: null,
-    processedByLabel: null,
-    processedBy: "",
-    processedType: null,
-    processedTypeLabel: null,
-    processStart: null,
-    processEnd: null,
-    inputs: [emptyLineUnit],
-    outputs: [emptyLineUnit],
-  };
-
-  const handleUpdateDocument = (formData) => {
-    updateDoc(formData, lineItems);
-  };
-
-  console.log(lineItems);
   const handleAddLineItem = (event) => {
     event.preventDefault();
     setLineItems((oldlineItems) => {
@@ -117,7 +109,7 @@ export default function UpdateDocForm({
         {lineItems.map((lineItem, lineIdx) => {
           return (
             <LineItemRow
-              key={`${lineIdx}-${lineItem.processType}`}
+              key={`${lineIdx}-${lineItem.processedBy}-${lineItem.processType}-${lineItem.processStart}-${lineItem.processEnd}`}
               lineIdx={lineIdx}
               lineItem={lineItem}
               handleDeleteLineItem={handleDeleteLineItem}
@@ -136,7 +128,10 @@ export default function UpdateDocForm({
   }
 
   return (
-    <form className={classes["update-form"]} action={handleUpdateDocument}>
+    <form
+      className={classes["update-form"]}
+      action={handleUpdateDoc.bind(null, lineItems, userId)}
+    >
       <DocFieldSets
         fieldSetClassName={classes["update-form-docFieldSet"]}
         fieldClassName={classes["update-form-docField"]}

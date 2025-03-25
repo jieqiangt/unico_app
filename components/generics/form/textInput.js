@@ -2,7 +2,7 @@ export default function TextInput({
   children,
   inputName,
   inputValue,
-  onChange,
+  onChangeHandler,
   fieldClassName,
 }) {
   return (
@@ -12,8 +12,8 @@ export default function TextInput({
         type="text"
         id={inputName}
         name={inputName}
-        defaultValue={inputValue}
-        onChange={onChange}
+        value={inputValue ?? ""}
+        onChange={onChangeHandler}
       />
     </div>
   );

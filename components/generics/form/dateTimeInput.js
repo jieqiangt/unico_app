@@ -12,7 +12,7 @@ export default function DateTimeInput({
         type="datetime-local"
         id={inputName}
         name={inputName}
-        defaultValue={inputValue}
+        value={inputValue ?? ""}
         min="2025-01-01T00:00"
         max="2027-12-31T00:00"
         onChange={onChangeHandler}

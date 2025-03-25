@@ -5,6 +5,7 @@ export default function SelectInput({
   selectedValue,
   onChangeHandler,
   fieldClassName,
+  defaultOptionText,
 }) {
   const selectOptions = options.map((option) => {
     return (
@@ -14,19 +15,31 @@ export default function SelectInput({
     );
   });
 
+  selectOptions.unshift(
+    <option key="defaultValue" value="" disabled hidden>
+      {defaultOptionText}
+    </option>
+  );
+
   return (
     <div className={fieldClassName}>
       <label htmlFor={inputName}>{children}</label>
       {selectedValue ? (
         <select
+          id={inputName}
           name={inputName}
-          defaultValue={selectedValue}
+          value={selectedValue}
           onChange={onChangeHandler}
         >
           {selectOptions}
         </select>
       ) : (
-        <select name={inputName} onChange={onChangeHandler}>
+        <select
+          id={inputName}
+          name={inputName}
+          defaultValue=""
+          onChange={onChangeHandler}
+        >
           {selectOptions}
         </select>
       )}

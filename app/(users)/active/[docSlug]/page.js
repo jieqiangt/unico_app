@@ -32,6 +32,9 @@ export default async function UpdateDocumentPage({ params }) {
         classes={classes}
         docDetails={docDetails[0]}
         initialLineItems={lineItemsWithUnits}
+        initialLines={lineItems}
+        initialInputs={inputs}
+        initialOutputs={outputs}
         userId={userId}
         productDetails={productDetails}
         processingEmpsOptions={processingEmpsOptions}
