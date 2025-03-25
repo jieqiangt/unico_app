@@ -20,10 +20,20 @@ export default function LineItemUnitFieldSets({
     const newUom = productDetails.filter(
       (product) => product.pdtCode === pdtCode
     )[0].uom;
+    const newForeignName = productDetails.filter(
+      (product) => product.pdtCode === pdtCode
+    )[0].foreignName;
 
     handleChangeInLineUnit("pdtCode", pdtCode, unitType, lineIdx, unitIdx);
     handleChangeInLineUnit("pdtName", newPdtName, unitType, lineIdx, unitIdx);
     handleChangeInLineUnit("uom", newUom, unitType, lineIdx, unitIdx);
+    handleChangeInLineUnit(
+      "foreignName",
+      newForeignName,
+      unitType,
+      lineIdx,
+      unitIdx
+    );
   };
 
   const pdtCodeOptions = productDetails.map((product) => ({

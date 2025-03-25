@@ -2,7 +2,7 @@
 import { useState } from "react";
 import DocFieldSets from "@/components/generics/form/docFieldSets";
 import LineItemRow from "./lineItemRow";
-import { handleUpdateDoc } from "@/lib/actions";
+import { handleUpdateDoc, handleSubmitDoc } from "@/lib/actions";
 
 const emptyLineUnit = {
   lineUnitId: null,
@@ -147,6 +147,18 @@ export default function UpdateDocForm({
           onClick={handleAddLineItem}
         >
           Add Line Item
+        </button>
+        <button
+          className={classes["update-form-button"]}
+          type="button"
+          onClick={handleSubmitDoc.bind(
+            null,
+            { docDetails, lineItems },
+            userId,
+            true
+          )}
+        >
+          Submit Document
         </button>
       </div>
       {lineItemsOutput}

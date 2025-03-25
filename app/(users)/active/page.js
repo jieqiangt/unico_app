@@ -56,12 +56,6 @@ export default async function ActivePage() {
         >
           New Document
         </FunctionButton>
-        <SubmitButton
-          className={classes["active-button"]}
-          // submitFn={submitDocs}
-        >
-          Submit All Documents
-        </SubmitButton>
       </div>
       {docsDisplay}
     </main>
